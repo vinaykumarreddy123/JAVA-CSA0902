@@ -1,0 +1,49 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class PerfectNumbers {
+    public static boolean isPerfectNumber(int num) {
+        int divisorsSum = 1;
+        for (int i = 2; i <= Math.sqrt(num); i++) {
+            if (num % i == 0) {
+                divisorsSum += i;
+                if (i != num / i) {
+                    divisorsSum += num / i;
+                }
+            }
+        }
+        return divisorsSum == num;
+    }
+
+    public static List<Integer> findPerfectNumbers(int n) {
+        List<Integer> perfectNumbers = new ArrayList<>();
+        int num = 2;
+        while (perfectNumbers.size() < n) {
+            if (isPerfectNumber(num)) {
+                perfectNumbers.add(num);
+            }
+            num++;
+        }
+        return perfectNumbers;
+    }
+
+    public static void main(String[] args) {
+        java.util.Scanner scanner = new java.util.Scanner(System.in);
+        System.out.print("Enter the value of N: ");
+        int n = scanner.nextInt();
+        scanner.close();
+
+        if (n <= 0) {
+            System.out.println("N must be a positive integer.");
+        } else {
+            List<Integer> perfectNumbers = findPerfectNumbers(n);
+            System.out.print("First " + n + " perfect numbers are: ");
+            for (int i = 0; i < n; i++) {
+                System.out.print(perfectNumbers.get(i));
+                if (i < n - 1) {
+                    System.out.print(", ");
+                }
+            }
+        }
+    }
+}
